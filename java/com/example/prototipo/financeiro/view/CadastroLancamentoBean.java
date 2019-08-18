@@ -29,7 +29,7 @@ public class CadastroLancamentoBean implements Serializable {
 
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private Lancamento lancamento =new Lancamento();
-	private Lancamento lancamentoSelecionado;
+	private Lancamento lancamentoSelecionado = new Lancamento();
 
 	@Autowired
 	private RepositorioPessoa repositorioPessoa;
