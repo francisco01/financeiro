@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Editar</title>
+</h:head>
+<h:body>
+
+	<h:form id="frmEdLancamento">
+		<h:panelGrid columns="2">
+
+			<h:outputLabel value="Tipo" />
+			<h:selectOneRadio
+				value="#{cadastroLancamentoBean.lancamentoSelecionado.tipo}"
+				required="true" label="tipo do lançamento" id="tipo">
+				<f:selectItems value="#{cadastroLancamentoBean.tiposLancamento}"
+					var="tipoLancamento" itemLabel="#{tipoLancamento.descricao}"
+					itemValue="#{tipoLancamento}" />
+				<p:ajax event="blur"
+					listener="#{cadastroLancamentoBean.lancamentoSelecionado.setTipo(cadastroLancamentoBean.lancamentoSelecionado.tipo)}">
+				</p:ajax>
+			</h:selectOneRadio>
+
+			<h:outputLabel value="Pessoa" />
+			<h:selectOneMenu
+				value="#{cadastroLancamentoBean.lancamentoSelecionado.pessoa}"
+				required="true" label="Pessoa" converter="#{pessoaConverter}"
+				id="pessoa">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				<f:selectItems value="#{cadastroLancamentoBean.pessoas}"
+					var="pessoa" itemLabel="#{pessoa.nome}" itemValue="#{pessoa}" />
+				<p:ajax event="blur"
+					listener="#{cadastroLancamentoBean.lancamentoSelecionado.pessoa}">
+				</p:ajax>
+			</h:selectOneMenu>
+
+			<p:outputLabel value="Descricao" />
+			<p:inputText
+				value="#{cadastroLancamentoBean.lancamentoSelecionado.descricao}">
+				<p:ajax event="blur"
+					listener="#{cadastroLancamentoBean.lancamentoSelecionado.setDescricao(cadastroLancamentoBean.lancamentoSelecionado.descricao)}" />
+			</p:inputText>
+			<h:outputLabel value="Valor" />
+			<h:inputText size="12"
+				value="#{cadastroLancamentoBean.lancamentoSelecionado.valor}"
+				required="true" label="Valor">
+				<f:convertNumber locale="pt_BR" maxFractionDigits="2"
+					minFractionDigits="2" />
+				<f:validateDoubleRange minimum="0" />
+				<p:ajax
+					listener="#{cadastroLancamentoBean.lancamentoSelecionado.setValor(cadastroLancamentoBean.lancamentoSelecionado.valor)}" />
+			</h:inputText>
+
+			<h:outputLabel value="Data de Vencimento" />
+			<h:inputText size="12"
+				value="#{cadastroLancamentoBean.lancamentoSelecionado.dataVencimento}"
+				required="true" label="Data de Vencimento">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+				<p:ajax
+					listener="#{cadastroLancamentoBean.lancamentoSelecionado.setDataVencimento(cadastroLancamentoBean.lancamentoSelecionado.dataVencimento)}" />
+			</h:inputText>
+
+			<h:panelGroup>
+				<p:selectBooleanCheckbox id="pagoCheckbox"
+					value="#{cadastroLancamentoBean.lancamentoSelecionado.pago}"
+					immediate="true"
+					valueChangeListener="#{cadastroLancamentoBean.lancamentoSelecionadoPago}"
+					/>
+				<h:outputLabel value="Conta paga" for="pagoCheckbox" />
+			</h:panelGroup>
+
+			<h:outputLabel/>
+			<h:outputLabel value="Data de Pagamento"
+				rendered="#{cadastroLancamentoBean.lancamentoSelecionado.pago}" />
+			<h:inputText size="12"
+				value="#{cadastroLancamentoBean.lancamentoSelecionado.dataPagamento}"
+				label="Data de Pagamento"
+				rendered="#{cadastroLancamentoBean.lancamentoSelecionado.pago}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+				<f:validator validatorId="com.example.DataFutura"></f:validator>
+				<f:validator validatorId="com.example.RequeridoCondicional"></f:validator>
+				<f:attribute name="checado"
+					value="#{cadastroLancamentoBean.lancamentoSelecionado.pago}" />
+					<p:ajax
+					listener="#{cadastroLancamentoBean.lancamentoSelecionado.setDataPagamento(cadastroLancamentoBean.lancamentoSelecionado.dataPagamento)}" />
+			</h:inputText>
+			<h:outputLabel/>
+
+			<p:commandButton value="Confirmar"
+				action="#{cadastroLancamentoBean.updateLancamento}"
+				oncomplete="PF('editLancamento').hide();" ajax="true"
+				immediate="true" update="frm" />
+
+		</h:panelGrid>
+
+	</h:form>
+
+</h:body>
+</html>

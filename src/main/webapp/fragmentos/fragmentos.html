@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+</h:head>
+<h:body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Gerenciador Financeiro</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbar-app">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar-app">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link" href="/">Home</a>
+				<a class="nav-item nav-link" href="/tarefas/listar">Tarefas</a>
+				<a class="nav-item nav-link" href="/clientes/listar">Clientes</a>
+				<a class="nav-item nav-link" href="/carros/listar">Carros</a>
+				<a class="nav-item nav-link" href="/aluguel/inserir">Alugar</a>
+				<div align="left" ><a class="nav-item nav-link" href="/logout">Sair</a> </div>
+			</div>
+		</div>
+	</nav>
+	<ui:insert name="conteudo"></ui:insert>
+
+
+	<script src="/webjars/jquery/3.4.1/jquery.min.js" />
+	<script src="/webjars/bootstrap/js/bootstrap.min.js" />
+</h:body>
+</html>
